@@ -1,3 +1,4 @@
+from typing import Dict, List, Optional, Set, Union 
 from openpyxl import Workbook as _Workbook
 from openpyxl.styles import (
     Alignment as _Alignment,
@@ -42,11 +43,11 @@ class Style:
     def __init__(
         self,
         name: str,
-        font: dict[str, str | bool | int] | None = None,
-        border: dict[str, str | _Color] | None = None,
-        fill: dict[str, str | _Color] | None = None,
-        alignment: dict[str, str | bool | int] | None = None,
-        number_format: str | None = None,
+        font: Optional[Dict[str, Union[str, bool, int]]] = None,
+        border: Optional[Dict[str, Union[str, _Color]]] = None,
+        fill: Optional[Dict[str, Union[str, _Color]]] = None,
+        alignment: Optional[Dict[str, Union[str, bool, int]]] = None,
+        number_format: Optional[str] = None,
         merge: bool = False,
     ):
         self.style = _NamedStyle(name=name or "-")
@@ -59,13 +60,13 @@ class Style:
         self.__set_fill(fill)
         self.__set_alignment(alignment)
 
-    def __set_font(self, font: dict[str, str | bool | int] | None) -> None:
+    def __set_font(self, font: Optional[Dict[str, Union[str, bool, int]]]) -> None:
         """
         Configures the font settings for the style.
 
         Parameters
         ----------
-        font : dict[str, str | bool | int] | None
+        font : dict[str, Union[str, bool, int]] | None
             A dictionary specifying font properties such as:
             - 'name' (str): Font name (e.g., "Calibri").
             - 'bold' (bool): Whether the font is bold.
@@ -91,13 +92,13 @@ class Style:
             color=_Color(default_font["color"]),
         )
 
-    def __set_border(self, border: dict[str, str | _Color] | None) -> None:
+    def __set_border(self, border: Optional[Dict[str, Union[str, _Color]]]) -> None:
         """
         Configures the border settings for the style.
 
         Parameters
         ----------
-        border : dict[str, str | _Color] | None
+        border : dict[str, Union[str, _Color]] | None
             A dictionary specifying border properties for each side:
             - 'top_style', 'bottom_style', 'left_style', 'right_style' (str):
             Border styles (e.g., 'thin', 'medium').
@@ -136,13 +137,13 @@ class Style:
             ),
         )
 
-    def __set_fill(self, fill: dict[str, str | _Color] | None) -> None:
+    def __set_fill(self, fill: Optional[Dict[str, Union[str, _Color]]]) -> None:
         """
         Configures the fill settings for the style.
 
         Parameters
         ----------
-        fill : dict[str, str | _Color] | None
+        fill : dict[str, Union[str, _Color]] | None
             A dictionary specifying fill properties:
             - 'type' (str): Fill pattern type (e.g., "solid", "none").
             - 'color' (str): Hexadecimal color code for the fill.
@@ -155,13 +156,13 @@ class Style:
             patternType=default_fill["type"], fgColor=_Color(default_fill["color"])
         )
 
-    def __set_alignment(self, alignment: dict[str, str | bool | int] | None) -> None:
+    def __set_alignment(self, alignment: Optional[Dict[str, Union[str, bool, int]]]) -> None:
         """
         Configures the alignment settings for the style.
 
         Parameters
         ----------
-        alignment : dict[str, str | bool | int] | None
+        alignment : dict[str, Union[str, bool, int]] | None
             A dictionary specifying alignment properties:
             - 'horizontal' (str): Horizontal alignment (e.g., "left", "center").
             - 'vertical' (str): Vertical alignment (e.g., "top", "center").
@@ -212,10 +213,10 @@ class Column:
 
     def __init__(
         self,
-        content: list[str],
+        content: List[str],
         title: str,
-        content_style: list[Style] | Style | None = None,
-        title_style: Style | None = None,
+        content_style: Optional[Union[List[Style], Style]] = None,
+        title_style: Optional[Style] = None,
         column_width: int = 11,
         best_fit: bool = False,
     ):
@@ -228,9 +229,9 @@ class Column:
 
     def __normalize_content_style(
         self,
-        content: list[str],
-        content_style: list[Style] | Style | None,
-    ) -> list[Style]:
+        content: List[str],
+        content_style: Optional[Union[List[Style], Style]],
+    ) -> List[Style]:
         """
         Ensures the content style is a list of `Style` instances, matching the
         content length.
@@ -239,12 +240,12 @@ class Column:
         ----------
         content : list of str
             The column's content, with one entry per row.
-        content_style : Style or list[Style] | None
+        content_style : Style or List[Style] | None
             A single `Style` instance, a list of `Style` instances, or None.
 
         Returns
         -------
-        list[Style]
+        List[Style]
             A list of `Style` instances, with one entry per row.
 
         Raises
@@ -279,12 +280,12 @@ class Sheet:
         The name of the sheet.
     """
 
-    def __init__(self, data: list[Column], sheet_name: str):
+    def __init__(self, data: List[Column], sheet_name: str):
         self.sheet_name = sheet_name
         self.columns = data
 
     @property
-    def named_styles(self) -> set[_NamedStyle]:
+    def named_styles(self) -> Set[_NamedStyle]:
         styles = []
         for col in self.columns:
             styles += [c.style for c in col.content_style]
@@ -364,12 +365,12 @@ class Workbook(_Workbook):
         A list of `Sheet` instances to include in the workbook.
     """
 
-    def __init__(self, sheets: list[Sheet]) -> None:
+    def __init__(self, sheets: List[Sheet]) -> None:
         super().__init__()
         self.__add_named_styles(sheets)
         self.__insert_sheets(sheets)
 
-    def __add_named_styles(self, sheets: list[Sheet]) -> None:
+    def __add_named_styles(self, sheets: List[Sheet]) -> None:
         """
         Adds all unique named styles from the sheets to the workbook.
 
@@ -386,7 +387,7 @@ class Workbook(_Workbook):
         for style in styles:
             self.add_named_style(style)
 
-    def __insert_sheets(self, sheets: list[Sheet]) -> None:
+    def __insert_sheets(self, sheets: List[Sheet]) -> None:
         """
         Inserts all sheets into the workbook and applies their content and styles.
 

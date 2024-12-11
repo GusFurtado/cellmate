@@ -14,7 +14,7 @@
 ## Getting Started
 
 ### Prerequisites
-Ensure you have Python 3.10 or later installed on your system. Additionally, install the required dependencies:
+Ensure you have Python 3.8 or later installed on your system. Additionally, install the required dependencies:
 
 ```bash
 pip install openpyxl
