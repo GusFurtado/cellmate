@@ -13,15 +13,8 @@
 
 ## Getting Started
 
-### Prerequisites
-Ensure you have Python 3.8 or later installed on your system. Additionally, install the required dependencies:
-
-```bash
-pip install openpyxl
-```
-
 ### Installation
-You can install `cellmate` via pip:
+Ensure you have Python 3.8 or later installed on your system. After that, you can install `cellmate` via pip:
 
 ```bash
 pip install cellmate
