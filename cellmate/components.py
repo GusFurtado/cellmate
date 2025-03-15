@@ -293,7 +293,7 @@ class Sheet:
 
         return set(styles)
 
-    def __populate_sheet(self, ws) -> None:
+    def _populate_sheet(self, ws) -> None:
         """
         Populates the Excel sheet with data from the columns and applies the
         corresponding styles.
@@ -351,7 +351,7 @@ class Sheet:
         for named_style in self.named_styles:
             wb.add_named_style(named_style)
 
-        self.__populate_sheet(ws)
+        self._populate_sheet(ws)
         wb.save(path)
 
 
@@ -399,7 +399,7 @@ class Workbook(_Workbook):
 
         for sheet in sheets:
             ws = self.create_sheet(sheet.sheet_name)
-            sheet.populate_sheet(ws)
+            sheet._populate_sheet(ws)
 
         # Remove first empty sheet
         ws = self.worksheets[0]
