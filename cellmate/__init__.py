@@ -1,5 +1,5 @@
 from .components import Column, Sheet, Style, Workbook
-from .defaults import (
+from .styles import (
     CURRENCY,
     DATE,
     DEFAULT,

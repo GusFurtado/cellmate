@@ -7,7 +7,7 @@
 - **Column Management**: Create structured and styled columns with titles and content.
 - **Sheet Creation**: Build sheets with multiple columns, complete with styles and formatting.
 - **Workbook Handling**: Manage multiple sheets within a single workbook and save them to Excel files.
-- **Built-in Defaults**: Use predefined styles for common formats such as currency, percentage, and dates.
+- **Built-in Styles**: Use predefined styles for common formats such as currency, percentage, and dates.
 
 ---
 
@@ -25,14 +25,15 @@ Here's an example of how to create a styled Excel workbook using `Cellmate`:
 
 ```python
 import cellmate as xl
+from cellmate import styles
 
 # Define columns with data and styles
 columns = [
     xl.Column(
         title="Product",
         content=["Apples", "Bananas", "Cherries"],
-        title_style=xl.TITLE1,
-        content_style=xl.DEFAULT
+        title_style=styles.TITLE1,
+        content_style=styles.DEFAULT
     ),
     xl.Column(
         title="Sales",
@@ -43,8 +44,8 @@ columns = [
     xl.Column(
         title="Growth",
         content=["0.05", "0.10", "0.07"],
-        title_style=xl.TITLE1,
-        content_style=xl.PERCENTAGE
+        title_style=styles.TITLE1,
+        content_style=styles.PERCENTAGE
     )
 ]
 
