@@ -1,66 +1,38 @@
-# Cellmate
+<p align="center">
+  <a href="https://www.gustavofurtado.com/cellmate/"><img src="https://www.gustavofurtado.com/assets/img/projects/cellmate.png" alt="cellmate" width="640"></a>
+</p>
 
-`cellmate` is a Python package for creating and managing styled Excel spreadsheets using OpenPyXL. It provides high-level abstractions such as `Style`, `Column`, `Sheet`, and `Workbook` to simplify Excel operations while allowing for extensive customization and formatting.
+<p align="center">
+  <b>Styled Excel spreadsheets with OpenPyXL, in a few lines of Python.</b>
+</p>
 
-## Features
-- **Reusable Styles**: Define and apply consistent styles across cells, columns, and sheets.
-- **Column Management**: Create structured and styled columns with titles and content.
-- **Sheet Creation**: Build sheets with multiple columns, complete with styles and formatting.
-- **Workbook Handling**: Manage multiple sheets within a single workbook and save them to Excel files.
-- **Built-in Styles**: Use predefined styles for common formats such as currency, percentage, and dates.
+<p align="center">
+  <a href="https://pypi.org/project/cellmate/"><img src="https://img.shields.io/pypi/v/cellmate" alt="PyPI"></a>
+  <a href="https://pypi.org/project/cellmate/"><img src="https://img.shields.io/pypi/pyversions/cellmate" alt="Python versions"></a>
+  <a href="https://pepy.tech/projects/cellmate"><img src="https://static.pepy.tech/badge/cellmate/month" alt="Downloads"></a>
+  <a href="https://github.com/GusFurtado/cellmate/blob/main/LICENSE"><img src="https://img.shields.io/pypi/l/cellmate" alt="License"></a>
+</p>
 
----
+<p align="center">
+  <b><a href="https://www.gustavofurtado.com/cellmate/">Documentation</a></b>
+</p>
 
-## Getting Started
+Describe each column once, with its title, content and styles, and cellmate writes the sheet.
+Styles are reusable objects, so the same look carries across columns, sheets and workbooks.
 
-### Installation
-Ensure you have Python 3.8 or later installed on your system. After that, you can install `cellmate` via pip:
+## Installation
 
-```bash
+```sh
 pip install cellmate
 ```
 
-### Example Usage
-Here's an example of how to create a styled Excel workbook using `Cellmate`:
+## What's inside
 
-```python
-import cellmate as xl
-from cellmate import styles
+- **`Style`**: font, border, fill, alignment and number format in one reusable object.
+- **`Column`**: a title and its content, with a style for each (or one per row).
+- **`Sheet`**: a list of columns that becomes a worksheet, or a file of its own.
+- **`Workbook`**: several sheets in one file, still a regular OpenPyXL `Workbook`.
+- **Built-in styles**: `TITLE1`, `TITLE2`, `CURRENCY`, `PERCENTAGE`, `DATE` and more.
 
-# Define columns with data and styles
-columns = [
-    xl.Column(
-        title="Product",
-        content=["Apples", "Bananas", "Cherries"],
-        title_style=styles.TITLE1,
-        content_style=styles.DEFAULT
-    ),
-    xl.Column(
-        title="Sales",
-        content=["100", "200", "150"],
-        title_style=xl.TITLE1,
-        content_style=xl.Style(name="currency", number_format="$ #,##0.00")
-    ),
-    xl.Column(
-        title="Growth",
-        content=["0.05", "0.10", "0.07"],
-        title_style=styles.TITLE1,
-        content_style=styles.PERCENTAGE
-    )
-]
-
-# Create a sheet and a workbook
-sheet = xl.Sheet(data=columns, sheet_name="Summary")
-workbook = xl.Workbook(sheets=[sheet])
-
-# Save the workbook
-workbook.save("example.xlsx")
-```
-
----
-
-## Contributing
-Contributions are welcome! Feel free to open an issue or submit a pull request on GitHub.
-
-## License
-This project is licensed under the MIT License.
+See the [quick start](https://www.gustavofurtado.com/cellmate/quickstart/) and the
+[API reference](https://www.gustavofurtado.com/cellmate/reference/components/).
