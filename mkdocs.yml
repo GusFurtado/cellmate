@@ -41,6 +41,7 @@ nav:
   - API Reference:
       - Components: reference/components.md
       - Built-in styles: reference/styles.md
+  - About: about.md
 
 plugins:
   - search
